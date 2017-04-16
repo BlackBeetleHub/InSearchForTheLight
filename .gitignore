@@ -1,0 +1,4 @@
+#Ignore dir's
+Temp/
+/
+!*/*.cs

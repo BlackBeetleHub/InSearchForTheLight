@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Assets.Script
+{
+    public interface IActionable
+    {
+        void walk();
+        void sit();
+        void run();
+        void attack(Entity entity);
+        void jump();
+        void getHit(int value);
+        void specialAttack();
+        void executeCommand();
+    }
+
+    public interface IDarkActionable : IActionable
+    {
+        void Hide();
+    }
+
+    public interface IHumanActionable : IActionable
+    {
+        void useItemOnHand();
+        void dropItemOnHand();
+        void useObject();
+        void think();
+        void talk(Entity entity);
+    }
+}
