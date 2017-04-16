@@ -85,6 +85,9 @@
     <Compile Include="Assets\Script\Entitys\Shadow.cs" />
     <Compile Include="Assets\Script\Item.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>

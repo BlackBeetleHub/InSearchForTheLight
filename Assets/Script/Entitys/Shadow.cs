@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Script
 {
-    public class Human : Entity
+    public class Shadow : Entity
     {
         protected new void init(string name, int x, int y, Animator animator)
         {
