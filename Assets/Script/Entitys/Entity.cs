@@ -39,7 +39,10 @@ namespace Assets.Script
         }
         public virtual void walk()
         {
-            _animator.SetBool("Grounded", true);
+            _animator.SetBool("Walking", true);
+            _animator.SetBool("Jumping", false);
+            _animator.SetBool("Running", false);
+
         }
         public virtual void jump()
         {
