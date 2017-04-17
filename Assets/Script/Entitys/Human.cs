@@ -33,14 +33,9 @@ namespace Assets.Script
 
         }
 
-        public void stay()
+        protected new void init(string name, Animator animator, Transform transform, Rigidbody2D rigiBody)
         {
-
-        }
-
-        protected new void init(string name, int x, int y, Animator animator)
-        {
-            base.init(name, x, y, animator);
+            base.init(name, animator, transform, rigiBody);
         }
     }
 }

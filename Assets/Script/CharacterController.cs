@@ -6,10 +6,6 @@ using System;
 
 public class CharacterController : Human
 {
-    private bool running;
-    private bool hidding;
-    private bool staying;
-    private bool jumping;
     public CharacterState _stateInput;
     public STATE _state = STATE.STAYING;
     public InputHandler Handle;
@@ -17,14 +13,15 @@ public class CharacterController : Human
     void Start()
     {
         Handle = new InputHandler();
-        init("Chatacter", 0, 0, GetComponent<Animator>());
+        init("Chatacter", GetComponent<Animator>(), GetComponent<Transform>(), GetComponent<Rigidbody2D>());
         _state = STATE.STAYING;
         _stateInput = new StayingStateCharacter();
     }
 
     public override void walk()
     {
-        
+        Transform transform = GetComponent<Transform>();
+
         GetComponent<Rigidbody2D>().velocity = new Vector2(flip * _maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
         base.walk();
     }

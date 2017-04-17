@@ -66,12 +66,12 @@ namespace Assets.Script
             if (command.ToString() == "StayCommand")
             {
                 character._stateInput = new StayingStateCharacter();
-                Debug.Log("Stay");
+                Debug.Log("Stay -StayingStateCharacter");
                 command.execute(character);
             }else if(command.ToString() == "WalkCommand")
             {
                 character._stateInput = new WalkingStateCharacter();
-                
+                Debug.Log("Walk -StayingStateCharacter");
                 command.execute(character);
             }
         }
@@ -89,13 +89,13 @@ namespace Assets.Script
             if (command.ToString() == "StayCommand")
             {
                 character._stateInput = new StayingStateCharacter();
-                Debug.Log("Stay");
+                Debug.Log("Stay -WalkingStateCharacter");
                 command.execute(character);
             }
             else if (command.ToString() == "WalkCommand")
             {
                 character._stateInput = new WalkingStateCharacter();
-
+                Debug.Log("Walk -WalkingStateCharacter");
                 command.execute(character);
             }
         }

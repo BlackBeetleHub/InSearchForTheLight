@@ -8,9 +8,9 @@ namespace Assets.Script
 {
     public class Shadow : Entity
     {
-        protected new void init(string name, int x, int y, Animator animator)
+        protected new void init(string name, Animator animator, Transform transform, Rigidbody2D rigiBody)
         {
-            base.init(name, x, y, animator);
+            base.init(name, animator, transform, rigiBody);
         }
     }
 }

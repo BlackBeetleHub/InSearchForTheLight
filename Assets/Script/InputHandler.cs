@@ -62,10 +62,11 @@ namespace Assets.Script
     {
         public Command inputHandler()
         {
-            if (Input.GetKeyDown(KeyCode.W)) return new JumpCommand();
-            if (Input.GetKeyDown(KeyCode.D)) return new WalkCommand();
-            if (Input.GetKeyDown(KeyCode.A)) return new WalkCommand();
-            if (Input.GetKeyDown(KeyCode.E)) return new UseItemCommand();
+            if (Input.GetButtonDown("Jump")) return new JumpCommand();
+            if (Input.GetKey(KeyCode.D)) return new WalkCommand();
+            Debug.Log(Input.GetButtonDown("Horizontal"));
+            if (Input.GetKey(KeyCode.A)) return new WalkCommand();
+            //if (Input.GetButtonDown("E")) return new UseItemCommand();
             return new StayCommand();
         }
     }

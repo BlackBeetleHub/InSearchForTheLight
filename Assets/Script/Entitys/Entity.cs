@@ -24,6 +24,9 @@ namespace Assets.Script
         }
         protected int _maxHealth = 100;
         protected int _maxSpeed = 5;
+        private Transform _transform;
+        private Rigidbody2D _rigiBody;
+        private bool isFlip = false; //Rignt
         public virtual void sit()
         {
             _animator.SetBool("Sit", true);
@@ -39,12 +42,27 @@ namespace Assets.Script
         }
         public virtual void walk()
         {
+            float xVelocity = _rigiBody.velocity.x;
+            if ( xVelocity < 0 && !isFlip)
+            {
+                isFlip = true;
+                Vector3 vec = transform.localScale;
+                vec.x *= -1;
+                transform.localScale = vec;
+            }else if (xVelocity > 0 && isFlip)
+            {
+                isFlip = false;
+                Vector3 vec = transform.localScale;
+                vec.x *= -1;
+                transform.localScale = vec;
+            }
             _animator.SetBool("Walking", true);
             _animator.SetBool("Staying", false);
 
         }
         public virtual void stay()
         {
+
             _animator.SetBool("Walking", false);
             _animator.SetBool("Staying", true);
 
@@ -80,17 +98,19 @@ namespace Assets.Script
         {
             _animator = animator;
         }
-        protected virtual void init(string name, int x, int y, Animator animator)
+        protected virtual void init(string name, Animator animator, Transform transform, Rigidbody2D rigiBody)
         {
             _name = name;
             _health = _maxHealth;
-            _x = x;
-            _y = y;
             _animator = animator;
+            _transform = transform;
+            _rigiBody = rigiBody;
         }
         public override string ToString()
         {
             return _name;
         }
+
+        
     }
 }
