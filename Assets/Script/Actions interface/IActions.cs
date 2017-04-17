@@ -12,6 +12,7 @@ namespace Assets.Script
         void run();
         void attack(Entity entity);
         void jump();
+        void stay();
         void getHit(int value);
         void specialAttack();
         void executeCommand();

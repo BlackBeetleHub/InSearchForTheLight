@@ -32,6 +32,12 @@ namespace Assets.Script
         {
 
         }
+
+        public void stay()
+        {
+
+        }
+
         protected new void init(string name, int x, int y, Animator animator)
         {
             base.init(name, x, y, animator);

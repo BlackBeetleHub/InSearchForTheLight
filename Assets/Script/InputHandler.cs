@@ -17,13 +17,24 @@ namespace Assets.Script
         {
             gameActor.jump();
         }
+
+        public override string ToString()
+        {
+            return "JumpCommand";
+        }
     }
 
     class WalkCommand : Command
     {
         public void execute(CharacterController gameActor)
         {
+
             gameActor.walk();
+        }
+
+        public override string ToString()
+        {
+            return "WalkCommand";
         }
     }
 
@@ -35,6 +46,18 @@ namespace Assets.Script
         }
     }
 
+    class StayCommand : Command
+    {
+        public void execute(CharacterController gameActor)
+        {
+            gameActor.stay();
+        }
+        public override string ToString()
+        {
+            return "StayCommand";
+        }
+    }
+
     public class InputHandler
     {
         public Command inputHandler()
@@ -43,7 +66,7 @@ namespace Assets.Script
             if (Input.GetKeyDown(KeyCode.D)) return new WalkCommand();
             if (Input.GetKeyDown(KeyCode.A)) return new WalkCommand();
             if (Input.GetKeyDown(KeyCode.E)) return new UseItemCommand();
-            return new WalkCommand();
+            return new StayCommand();
         }
     }
 }

@@ -40,8 +40,13 @@ namespace Assets.Script
         public virtual void walk()
         {
             _animator.SetBool("Walking", true);
-            _animator.SetBool("Jumping", false);
-            _animator.SetBool("Running", false);
+            _animator.SetBool("Staying", false);
+
+        }
+        public virtual void stay()
+        {
+            _animator.SetBool("Walking", false);
+            _animator.SetBool("Staying", true);
 
         }
         public virtual void jump()
