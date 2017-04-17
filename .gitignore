@@ -1,3 +1,9 @@
 #Ignore dir's
 Temp/
-!*/*.cs
+Library/
+
+#Ignore files
+*.sln
+
+#Not ignore
+!*.cs 
