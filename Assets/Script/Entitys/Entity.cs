@@ -23,10 +23,27 @@ namespace Assets.Script
             }
         }
         protected int _maxHealth = 100;
-        protected int _maxSpeed = 5;
+        protected int _maxSpeed = 15;
         private Transform _transform;
         private Rigidbody2D _rigiBody;
         private bool isFlip = false; //Rignt
+        public void setSpeed(float value)
+        {
+            if (isFlip)
+            {
+                speed = value * -1;
+            }
+            else
+            {
+                speed = value;
+            }
+
+        }
+        public float getSpeed()
+        {
+            return speed;
+        }
+        public float speed = 5;
         public virtual void sit()
         {
             _animator.SetBool("Sit", true);
@@ -42,27 +59,28 @@ namespace Assets.Script
         }
         public virtual void walk()
         {
-            float xVelocity = _rigiBody.velocity.x;
-            if ( xVelocity < 0 && !isFlip)
-            {
-                isFlip = true;
-                Vector3 vec = transform.localScale;
-                vec.x *= -1;
-                transform.localScale = vec;
-            }else if (xVelocity > 0 && isFlip)
-            {
-                isFlip = false;
-                Vector3 vec = transform.localScale;
-                vec.x *= -1;
-                transform.localScale = vec;
-            }
+            //setSpeed(5);
             _animator.SetBool("Walking", true);
             _animator.SetBool("Staying", false);
 
         }
+
+        public void flip(bool value) // will be future optimazied
+        {
+            if (value == isFlip)
+            {
+                return;
+            }
+            isFlip = value;
+            Vector3 vec = transform.localScale;
+            vec.x *= -1;
+            transform.localScale = vec;
+        }
+
         public virtual void stay()
         {
-
+            //setSpeed(0);
+            _rigiBody.velocity = new Vector2(0, _rigiBody.velocity.y);
             _animator.SetBool("Walking", false);
             _animator.SetBool("Staying", true);
 
@@ -111,6 +129,6 @@ namespace Assets.Script
             return _name;
         }
 
-        
+
     }
 }

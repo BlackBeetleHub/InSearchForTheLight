@@ -66,12 +66,12 @@ namespace Assets.Script
             if (command.ToString() == "StayCommand")
             {
                 character._stateInput = new StayingStateCharacter();
-                Debug.Log("Stay -StayingStateCharacter");
+                character.setSpeed(0);
                 command.execute(character);
             }else if(command.ToString() == "WalkCommand")
             {
                 character._stateInput = new WalkingStateCharacter();
-                Debug.Log("Walk -StayingStateCharacter");
+                //Debug.Log("Walk -StayingStateCharacter");
                 command.execute(character);
             }
         }

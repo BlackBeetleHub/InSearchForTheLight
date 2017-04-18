@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Assets.Script
 {
+
     public interface Command
     {
         void execute(CharacterController gameActor);
@@ -29,6 +30,7 @@ namespace Assets.Script
         public void execute(CharacterController gameActor)
         {
 
+            gameActor.flip(InputHandler.isFlip);
             gameActor.walk();
         }
 
@@ -60,13 +62,28 @@ namespace Assets.Script
 
     public class InputHandler
     {
+        public static bool isFlip = false;
+
         public Command inputHandler()
         {
-            if (Input.GetButtonDown("Jump")) return new JumpCommand();
-            if (Input.GetKey(KeyCode.D)) return new WalkCommand();
-            Debug.Log(Input.GetButtonDown("Horizontal"));
-            if (Input.GetKey(KeyCode.A)) return new WalkCommand();
-            //if (Input.GetButtonDown("E")) return new UseItemCommand();
+            if (Input.GetButtonDown("Jump"))
+            {
+                return new JumpCommand();
+            }
+
+            if (Input.GetKey(KeyCode.D))
+            {
+                isFlip = false;
+                return new WalkCommand();
+
+            }
+
+            if (Input.GetKey(KeyCode.A))
+            {
+                isFlip = true;
+                return new WalkCommand();
+            }
+
             return new StayCommand();
         }
     }
