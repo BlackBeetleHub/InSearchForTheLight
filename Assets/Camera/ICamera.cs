@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.Camera
+namespace Assets.Script
 {
     struct Rect
     {
@@ -15,5 +15,6 @@ namespace Assets.Camera
     {
         void setRect(Rect rect);
         void scale(int value);
+        void following(Entity entity);
     }
 }
