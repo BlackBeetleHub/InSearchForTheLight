@@ -5,10 +5,23 @@ using System.Text;
 
 namespace Assets.Script
 {
-    struct Rect
+    public struct Rect
     {
-        int wigth;
-        int hight;
+        private float _wigth;
+        private float _hight;
+        public float getWidth()
+        {
+            return _wigth;
+        }
+        public float getHight()
+        {
+            return _hight;
+        }
+        public Rect(float wigth, float hight)
+        {
+            _wigth = wigth;
+            _hight = hight;
+        }
     }
 
     interface ICamera
