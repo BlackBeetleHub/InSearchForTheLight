@@ -25,6 +25,7 @@ namespace Assets.Script
         protected int _maxHealth = 100;
         protected int _maxSpeed = 15;
         private int MAX_WALK_SPEED = 4;
+        private int MAX_RUN_SPEED = 7;
         private Transform _transform;
         private Rigidbody2D _rigiBody;
         private bool isFlip = false; //Rignt
@@ -57,12 +58,23 @@ namespace Assets.Script
         {
             _animator.SetBool("SpecialAttack", true);
         }
+        public virtual void run()
+        {
+           
+            setSpeed(MAX_RUN_SPEED);
+            _rigiBody.velocity = new Vector2(getSpeed(), _rigiBody.velocity.y);
+            _animator.SetBool("Walking", false);
+            _animator.SetBool("Staying", false);
+            _animator.SetBool("Running", true);
+        }
         public virtual void walk()
         {
+            
             setSpeed(MAX_WALK_SPEED); // MAX_WALK_SPEED  =  4
             _rigiBody.velocity = new Vector2(getSpeed(), _rigiBody.velocity.y);
             _animator.SetBool("Walking", true);
             _animator.SetBool("Staying", false);
+            _animator.SetBool("Running", false);
 
         }
 
@@ -84,15 +96,13 @@ namespace Assets.Script
             _rigiBody.velocity = new Vector2(0, _rigiBody.velocity.y);
             _animator.SetBool("Walking", false);
             _animator.SetBool("Staying", true);
+            _animator.SetBool("Running", false);
         }
         public virtual void jump()
         {
             _animator.SetBool("Grounded", false);
         }
-        public virtual void run()
-        {
-            _animator.SetBool("SpecialAttack", true);
-        }
+        
         public virtual void executeCommand()
         {
 

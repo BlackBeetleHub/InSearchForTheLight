@@ -29,7 +29,6 @@ namespace Assets.Script
     {
         public void execute(CharacterController gameActor)
         {
-
             gameActor.flip(InputHandler.isFlip);
             gameActor.walk();
         }
@@ -37,6 +36,19 @@ namespace Assets.Script
         public override string ToString()
         {
             return "WalkCommand";
+        }
+    }
+    class RunCommand : Command
+    {
+        public void execute(CharacterController gameActor)
+        {
+            gameActor.flip(InputHandler.isFlip);
+            gameActor.run();
+        }
+
+        public override string ToString()
+        {
+            return "RunCommand";
         }
     }
 
@@ -70,19 +82,30 @@ namespace Assets.Script
             {
                 return new JumpCommand();
             }
-
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.D))
             {
+                
+                isFlip = false;
+                return new RunCommand();
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+          
                 isFlip = false;
                 return new WalkCommand();
 
             }
-
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.A))
+            {
+                isFlip = true;
+                return new RunCommand();
+            } else if (Input.GetKey(KeyCode.A))
             {
                 isFlip = true;
                 return new WalkCommand();
             }
+
+           
 
             return new StayCommand();
         }

@@ -105,4 +105,35 @@ namespace Assets.Script
 
         }
     }
+
+     public class RunningStateCharacter : CharacterState
+    {
+        public override void handleInput(CharacterController character, Command command)
+        {
+            if (command.ToString() == "StayCommand")
+            {
+                character._stateInput = new StayingStateCharacter();
+                
+                command.execute(character);
+            }
+            else if (command.ToString() == "WalkCommand")
+            {
+                character._stateInput = new WalkingStateCharacter();
+               
+                command.execute(character);
+            }
+            else if (command.ToString() == "RunCommand")
+            {
+             
+                character._stateInput = new RunningStateCharacter();
+               
+                command.execute(character);
+            }
+        }
+
+        public override void update(CharacterController human)
+        {
+
+        }
+    }
 }
