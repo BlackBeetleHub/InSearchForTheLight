@@ -15,6 +15,7 @@ public class RoomCurtain : MonoBehaviour {
         Entering = false;
 
         WallPict = gameObject.GetComponent<SpriteRenderer>();
+        WallPict.enabled = true;
         alpha = WallPict.color;
     }
 
