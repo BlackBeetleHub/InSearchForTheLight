@@ -74,6 +74,13 @@ namespace Assets.Script
                 //Debug.Log("Walk -StayingStateCharacter");
                 command.execute(character);
             }
+            else if (command.ToString() == "RunCommand")
+            {
+
+                character._stateInput = new RunningStateCharacter();
+
+                command.execute(character);
+            }
         }
 
         public override void update(CharacterController human)
@@ -96,6 +103,13 @@ namespace Assets.Script
             {
                 character._stateInput = new WalkingStateCharacter();
                 Debug.Log("Walk -WalkingStateCharacter");
+                command.execute(character);
+            }
+            else if (command.ToString() == "RunCommand")
+            {
+
+                character._stateInput = new RunningStateCharacter();
+
                 command.execute(character);
             }
         }

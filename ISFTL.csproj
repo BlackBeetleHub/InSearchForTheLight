@@ -85,6 +85,7 @@
     <Compile Include="Assets\Script\Entitys\Shadow.cs" />
     <Compile Include="Assets\Script\InputHandler.cs" />
     <Compile Include="Assets\Script\Item.cs" />
+    <Compile Include="Assets\Script\RoomCurtain.cs" />
     <Compile Include="Assets\Script\States.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

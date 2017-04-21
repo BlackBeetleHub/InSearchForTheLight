@@ -84,13 +84,12 @@ namespace Assets.Script
             }
             if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.D))
             {
-                
                 isFlip = false;
                 return new RunCommand();
             }
             else if (Input.GetKey(KeyCode.D))
             {
-          
+
                 isFlip = false;
                 return new WalkCommand();
 
@@ -99,14 +98,12 @@ namespace Assets.Script
             {
                 isFlip = true;
                 return new RunCommand();
-            } else if (Input.GetKey(KeyCode.A))
+            }
+            else if (Input.GetKey(KeyCode.A))
             {
                 isFlip = true;
                 return new WalkCommand();
             }
-
-           
-
             return new StayCommand();
         }
     }
