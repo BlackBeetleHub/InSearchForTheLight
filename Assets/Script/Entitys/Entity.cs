@@ -8,6 +8,25 @@ namespace Assets.Script
 {
     public class Entity : MonoBehaviour, IActionable
     {
+        // Refactoring !!!
+        public delegate void useObject(Entity entity);
+        public event useObject eventUseObject;
+
+        protected int _maxHealth = 100;
+        protected int _maxSpeed = 15;
+        private int MAX_WALK_SPEED = 4;
+        private int MAX_RUN_SPEED = 7;
+        private bool isFlip = false; //Rignt
+        private float speed = 5;
+        private Transform _transform;
+        private Rigidbody2D _rigiBody;
+        private BoxCollider2D _collider;
+        private string _name;
+        public CharacterState _stateInput;
+        public STATE _state = STATE.STAYING;
+        public BoxCollider2D getCollider2D() {
+            return _collider;
+        }
         protected int _health
         {
             set
@@ -22,13 +41,7 @@ namespace Assets.Script
                 return _health;
             }
         }
-        protected int _maxHealth = 100;
-        protected int _maxSpeed = 15;
-        private int MAX_WALK_SPEED = 4;
-        private int MAX_RUN_SPEED = 7;
-        private Transform _transform;
-        private Rigidbody2D _rigiBody;
-        private bool isFlip = false; //Rignt
+        
         public void setSpeed(float value)
         {
             if (isFlip)
@@ -40,11 +53,17 @@ namespace Assets.Script
                 speed = value;
             }
         }
+
+        public float getCurrentSpeedX()
+        {
+            return _rigiBody.velocity.x;
+        }
+
         public float getSpeed()
         {
             return speed;
         }
-        private float speed = 5;
+       
         public virtual void sit()
         {
             _animator.SetBool("Sit", true);
@@ -60,7 +79,6 @@ namespace Assets.Script
         }
         public virtual void run()
         {
-           
             setSpeed(MAX_RUN_SPEED);
             _rigiBody.velocity = new Vector2(getSpeed(), _rigiBody.velocity.y);
             _animator.SetBool("Walking", false);
@@ -111,31 +129,35 @@ namespace Assets.Script
         {
             _health -= value;
         }
+
+        public void useObjectOnScane()
+        {
+            Debug.Log("Event useObjectOnScane");
+            eventUseObject(this);
+        }
+
         public void setHealth(int value)
         {
             _health = value;
         }
         protected Animator _animator { set; get; }
 
-        private string _name;
-
         void bindAnimator(Animator animator)
         {
             _animator = animator;
         }
-        protected virtual void init(string name, Animator animator, Transform transform, Rigidbody2D rigiBody)
+        protected virtual void init(string name, Animator animator, Transform transform, Rigidbody2D rigiBody, BoxCollider2D collider2D)
         {
             _name = name;
             _health = _maxHealth;
             _animator = animator;
             _transform = transform;
             _rigiBody = rigiBody;
+            _collider = collider2D;
         }
         public override string ToString()
         {
             return _name;
         }
-
-
     }
 }

@@ -16,6 +16,7 @@ namespace Assets.Script
         void getHit(int value);
         void specialAttack();
         void executeCommand();
+        void useObjectOnScane();
     }
 
     public interface IDarkActionable : IActionable
@@ -27,7 +28,7 @@ namespace Assets.Script
     {
         void useItemOnHand();
         void dropItemOnHand();
-        void useObject();
+        
         void think();
         void talk(Entity entity);
     }

@@ -2,78 +2,86 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomCurtain : MonoBehaviour {
+namespace Assets.Script
+{
 
-    private bool Exiting;
-    private bool Entering;
-    private SpriteRenderer WallPict;
-    private Color alpha;
-    // Use this for initialization
-
-    void Start () {
-        Exiting = false;
-        Entering = false;
-
-        WallPict = gameObject.GetComponent<SpriteRenderer>();
-        WallPict.enabled = true;
-        alpha = WallPict.color;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {   
-        if (Entering)
-        {
-            CurtainUp();
-        }
-        else if (Exiting)
-        {
-            CurtainDown();
-        }
-    }
-    void OnTriggerEnter2D(Collider2D col)
+    public class RoomCurtain : MonoBehaviour
     {
-        if (col.gameObject.tag == "Player")
-        {
-            Entering = true;
-            Exiting = false;
-        }
-    }
-    void OnTriggerExit2D(Collider2D col)
-    {
-        if (col.gameObject.tag == "Player")
-        {
-            Exiting = true;
-            Entering = false;
-        }
-    }
-    private void CurtainUp()
-    {
+        private bool isInside;
+        private bool isOpen;
+        private SpriteRenderer WallPict;
+        private BoxCollider2D _collider;
+        private Color alpha;
+        private SceneObject[] doors;
+        // Use this for initialization
 
-        if (alpha.a > 0.2f)
+        public void Start()
         {
-            alpha.a -= (Time.deltaTime);
-            alpha.a = Mathf.Clamp(alpha.a, 0.2f, 1);
-            WallPict.color = alpha;
-        }
-        else
-        {
-            Entering = false;
+            isInside = false;
+            isOpen = false;
+            _collider = GetComponent<BoxCollider2D>();
+            doors = (ObjectManager.collisionDoor(_collider));
+            WallPict = GetComponent<SpriteRenderer>();
+            WallPict.enabled = true;
+            alpha = WallPict.color;
         }
 
-    }
-    private void CurtainDown()
-    {
-        if (alpha.a < 1)
+        // Update is called once per frame
+        public void Update()
         {
-            alpha.a += (Time.deltaTime);
-            alpha.a = Mathf.Clamp(alpha.a, 0, 1);
-            WallPict.color = alpha;
-        }
-        else
-        {
-            Exiting = false;
-        }
-    }
+            if (isInside || isOpen)
+            {
+                CurtainUp();
+            }
+            else
+            {
+                CurtainDown();
+            }
 
+            isOpen = false;
+
+            for (int i = 0; i < doors.Length; i++)
+            {
+                if (doors[i].getStatus())
+                {
+                    isOpen = true;
+                }
+            }
+        }
+        void OnTriggerEnter2D(Collider2D col)
+        {
+            if (col.gameObject.tag == "Player")
+            {
+                isInside = true;
+            }
+        }
+        void OnTriggerExit2D(Collider2D col)
+        {
+            if (col.gameObject.tag == "Player")
+            {
+                isInside = false;
+            }
+        }
+        private void CurtainUp()
+        {
+
+            if (alpha.a > 0.2f)
+            {
+                alpha.a -= (Time.deltaTime);
+                alpha.a = Mathf.Clamp(alpha.a, 0.2f, 1);
+                WallPict.color = alpha;
+            }
+
+        }
+        private void CurtainDown()
+        {
+            if (alpha.a < 1)
+            {
+                alpha.a += (Time.deltaTime);
+                alpha.a = Mathf.Clamp(alpha.a, 0, 1);
+                WallPict.color = alpha;
+            }
+        }
+
+    }
 }

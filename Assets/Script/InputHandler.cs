@@ -56,7 +56,12 @@ namespace Assets.Script
     {
         public void execute(CharacterController gameActor)
         {
-            gameActor.useItemOnHand();
+            Debug.Log("Use Item Command");
+            gameActor.useObjectOnScane(); // Scene
+        }
+        public override string ToString()
+        {
+            return "UseCommand";
         }
     }
 
@@ -78,6 +83,11 @@ namespace Assets.Script
 
         public Command inputHandler()
         {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Debug.Log("Use E");
+                return new UseItemCommand();
+            }
             if (Input.GetButtonDown("Jump"))
             {
                 return new JumpCommand();

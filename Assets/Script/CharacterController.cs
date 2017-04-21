@@ -6,14 +6,13 @@ using System;
 
 public class CharacterController : Human
 {
-    public CharacterState _stateInput;
-    public STATE _state = STATE.STAYING;
+    
     public InputHandler Handle;
     
     void Start()
     {
         Handle = new InputHandler();
-        init("Chatacter", GetComponent<Animator>(), GetComponent<Transform>(), GetComponent<Rigidbody2D>());
+        init("Chatacter", GetComponent<Animator>(), GetComponent<Transform>(), GetComponent<Rigidbody2D>(), GetComponent<BoxCollider2D>());
         _stateInput = new StayingStateCharacter();
     }
 

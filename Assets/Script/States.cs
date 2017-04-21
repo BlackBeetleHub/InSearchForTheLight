@@ -70,6 +70,7 @@ namespace Assets.Script
                 command.execute(character);
             }else if(command.ToString() == "WalkCommand")
             {
+                character.setSpeed(4);
                 character._stateInput = new WalkingStateCharacter();
                 //Debug.Log("Walk -StayingStateCharacter");
                 command.execute(character);
@@ -79,6 +80,10 @@ namespace Assets.Script
 
                 character._stateInput = new RunningStateCharacter();
 
+                command.execute(character);
+            }
+            if (command.ToString() == "UseCommand")
+            {
                 command.execute(character);
             }
         }
@@ -96,13 +101,11 @@ namespace Assets.Script
             if (command.ToString() == "StayCommand")
             {
                 character._stateInput = new StayingStateCharacter();
-                Debug.Log("Stay -WalkingStateCharacter");
                 command.execute(character);
             }
             else if (command.ToString() == "WalkCommand")
             {
                 character._stateInput = new WalkingStateCharacter();
-                Debug.Log("Walk -WalkingStateCharacter");
                 command.execute(character);
             }
             else if (command.ToString() == "RunCommand")
@@ -110,6 +113,10 @@ namespace Assets.Script
 
                 character._stateInput = new RunningStateCharacter();
 
+                command.execute(character);
+            }
+            if(command.ToString() == "UseCommand")
+            {
                 command.execute(character);
             }
         }
@@ -141,6 +148,10 @@ namespace Assets.Script
              
                 character._stateInput = new RunningStateCharacter();
                
+                command.execute(character);
+            }
+            if (command.ToString() == "UseCommand")
+            {
                 command.execute(character);
             }
         }
