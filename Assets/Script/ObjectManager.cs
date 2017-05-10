@@ -9,7 +9,7 @@ namespace Assets.Script
 
     public interface IUseable
     {
-        void use();
+        void use(Entity entity);
     }
 
 
@@ -26,29 +26,39 @@ namespace Assets.Script
             SceneObject temp = null;
             foreach (var obj in _sceneObjects)
             {
-                if (entity.getCollider2D().IsTouching(obj._collider) == true)
+                if (entity.getCollider2D().IsTouching(obj.getCollider2D()) == true)
                 {
-                    Debug.Log("try");
                     temp = obj;
                     break;
                 }
             }
             if (temp != null)
             {
-                temp.use();
+                temp.use(entity);
             }
         }
 
-        public static SceneObject[] collisionDoor(Collider2D collider)
+        public static SceneObject[] collisionDoor(Collider2D collider) //TODO :rename vars, make better.
         {
             List<SceneObject> doors = new List<SceneObject>();
-
+            Collider2D[] collisionWithRoom = Physics2D.OverlapBoxAll(collider.transform.position, collider.bounds.size, 0);
+            Debug.Log(collisionWithRoom.Length);
             foreach (var obj in _sceneObjects)
             {
                 if (obj.ToString() == "Door")
                 {
-                    Debug.Log("Find");
-                    doors.Add(obj);
+                    foreach (var col in collisionWithRoom)
+                    {
+                        Debug.Log(col.IsTouching(obj.getCollider2D()));
+                        if (col.IsTouching(obj.getCollider2D()) == true)
+                        {
+                            Debug.Log("find");
+                            //col.Equals(obj.getCollider2D()
+                            //Physics2D.IsTouching(col,obj.getCollider2D())
+                            //  Debug.Log("Find");
+                            doors.Add(obj);
+                        }
+                    }
                 }
             }
             return doors.ToArray();
@@ -56,11 +66,8 @@ namespace Assets.Script
 
         public void init(IEnumerable<Entity> entites, IEnumerable<SceneObject> sceneObjects)
         {
-            _entites = entites.ToList<Entity>();
-            _sceneObjects = sceneObjects.ToList<SceneObject>();
-
-            //Debug.Log(ObjectManager.collisionDoor(_sceneObjects[0]._collider)[0].ToString());
-
+            _entites = entites.ToList();
+            _sceneObjects = sceneObjects.ToList();
             foreach (var entity in _entites)
             {
                 entity.eventUseObject += tryUseObject;
@@ -69,9 +76,7 @@ namespace Assets.Script
 
         public void Start()
         {
-            Debug.Log("StartBegin ObjectManager");
             init(FindObjectsOfType<Entity>(), FindObjectsOfType<SceneObject>());
-            Debug.Log("StartEnd Object Manager");
         }
     }
 }

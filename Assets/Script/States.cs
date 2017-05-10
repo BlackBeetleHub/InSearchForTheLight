@@ -7,7 +7,8 @@ using UnityEngine;
 namespace Assets.Script
 {
 
-    public enum STATE{
+    public enum STATE
+    {
         JUMPING,
         WALKING,
         SITTING,
@@ -21,7 +22,44 @@ namespace Assets.Script
         public abstract void update(CharacterController character);
     }
 
-    public class DuckingStateCharacter : CharacterState
+    public class OnGroundState : CharacterState
+    {
+        public override void handleInput(CharacterController character, Command command)
+        {
+            if (command.ToString() == "StayCommand")
+            {
+                character._stateInput = new StayingStateCharacter();
+                command.execute(character);
+            }
+            else if (command.ToString() == "WalkCommand")
+            {
+                character._stateInput = new WalkingStateCharacter();
+                command.execute(character);
+            }
+            else if (command.ToString() == "RunCommand")
+            {
+                character._stateInput = new RunningStateCharacter();
+                command.execute(character);
+            } 
+            if(character.getCurrentSpeedY() <= 0.1 && command.ToString() == "JumpCommand")
+            {
+                character._stateInput = new JumpingStateCharacter();
+                command.execute(character);
+            }
+            if (command.ToString() == "UseCommand")
+            {
+                command.execute(character);
+            }
+           
+            
+        }
+        public override void update(CharacterController character)
+        {
+
+        }
+    }
+
+    public class DuckingStateCharacter : OnGroundState
     {
         public override void handleInput(CharacterController character, Command command)
         {
@@ -36,18 +74,22 @@ namespace Assets.Script
         }
         public override void update(CharacterController character)
         {
-            
+
         }
     }
 
-    public class JumpingStateCharacter : CharacterState
+    public class JumpingStateCharacter : OnGroundState
     {
         public override void handleInput(CharacterController character, Command command)
         {
-            if (command.ToString() == "JumpCommand" && character._state != STATE.JUMPING && character._state != STATE.SITTING)
+            if (character.getCurrentSpeedY() != 0)
             {
-
-                character._state = STATE.JUMPING;
+                character._stateInput = new JumpingStateCharacter();
+                character.Down();
+            }
+            else
+            {
+                character._stateInput = new StayingStateCharacter();
                 command.execute(character);
             }
         }
@@ -58,34 +100,11 @@ namespace Assets.Script
         }
     }
 
-    public class StayingStateCharacter : CharacterState
+    public class StayingStateCharacter : OnGroundState
     {
         public override void handleInput(CharacterController character, Command command)
         {
-            //Debug.Log("command.ToString()");
-            if (command.ToString() == "StayCommand")
-            {
-                character._stateInput = new StayingStateCharacter();
-                character.setSpeed(0);
-                command.execute(character);
-            }else if(command.ToString() == "WalkCommand")
-            {
-                character.setSpeed(4);
-                character._stateInput = new WalkingStateCharacter();
-                //Debug.Log("Walk -StayingStateCharacter");
-                command.execute(character);
-            }
-            else if (command.ToString() == "RunCommand")
-            {
-
-                character._stateInput = new RunningStateCharacter();
-
-                command.execute(character);
-            }
-            if (command.ToString() == "UseCommand")
-            {
-                command.execute(character);
-            }
+            base.handleInput(character, command);
         }
 
         public override void update(CharacterController human)
@@ -94,31 +113,11 @@ namespace Assets.Script
         }
     }
 
-    public class WalkingStateCharacter : CharacterState
+    public class WalkingStateCharacter : OnGroundState
     {
         public override void handleInput(CharacterController character, Command command)
         {
-            if (command.ToString() == "StayCommand")
-            {
-                character._stateInput = new StayingStateCharacter();
-                command.execute(character);
-            }
-            else if (command.ToString() == "WalkCommand")
-            {
-                character._stateInput = new WalkingStateCharacter();
-                command.execute(character);
-            }
-            else if (command.ToString() == "RunCommand")
-            {
-
-                character._stateInput = new RunningStateCharacter();
-
-                command.execute(character);
-            }
-            if(command.ToString() == "UseCommand")
-            {
-                command.execute(character);
-            }
+            base.handleInput(character, command);
         }
 
         public override void update(CharacterController human)
@@ -127,33 +126,11 @@ namespace Assets.Script
         }
     }
 
-     public class RunningStateCharacter : CharacterState
+    public class RunningStateCharacter : OnGroundState
     {
         public override void handleInput(CharacterController character, Command command)
         {
-            if (command.ToString() == "StayCommand")
-            {
-                character._stateInput = new StayingStateCharacter();
-                
-                command.execute(character);
-            }
-            else if (command.ToString() == "WalkCommand")
-            {
-                character._stateInput = new WalkingStateCharacter();
-               
-                command.execute(character);
-            }
-            else if (command.ToString() == "RunCommand")
-            {
-             
-                character._stateInput = new RunningStateCharacter();
-               
-                command.execute(character);
-            }
-            if (command.ToString() == "UseCommand")
-            {
-                command.execute(character);
-            }
+            base.handleInput(character, command);
         }
 
         public override void update(CharacterController human)

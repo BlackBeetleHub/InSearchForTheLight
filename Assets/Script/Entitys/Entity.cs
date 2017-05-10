@@ -41,7 +41,11 @@ namespace Assets.Script
                 return _health;
             }
         }
-        
+
+        public float getSpeed()
+        {
+            return speed;
+        }
         public void setSpeed(float value)
         {
             if (isFlip)
@@ -58,11 +62,11 @@ namespace Assets.Script
         {
             return _rigiBody.velocity.x;
         }
-
-        public float getSpeed()
+        public float getCurrentSpeedY()
         {
-            return speed;
+            return _rigiBody.velocity.y;
         }
+
        
         public virtual void sit()
         {
@@ -84,6 +88,7 @@ namespace Assets.Script
             _animator.SetBool("Walking", false);
             _animator.SetBool("Staying", false);
             _animator.SetBool("Running", true);
+            _animator.SetBool("Jumping", false);
         }
         public virtual void walk()
         {
@@ -93,7 +98,13 @@ namespace Assets.Script
             _animator.SetBool("Walking", true);
             _animator.SetBool("Staying", false);
             _animator.SetBool("Running", false);
+            _animator.SetBool("Jumping", false);
 
+        }
+
+        public void Down()
+        {
+            _animator.SetBool("Jumping", true);
         }
 
         public void flip(bool value) // will be future optimazied
@@ -115,10 +126,12 @@ namespace Assets.Script
             _animator.SetBool("Walking", false);
             _animator.SetBool("Staying", true);
             _animator.SetBool("Running", false);
+            _animator.SetBool("Jumping", false);
         }
         public virtual void jump()
         {
-            _animator.SetBool("Grounded", false);
+            _rigiBody.velocity = new Vector2(_rigiBody.velocity.x, 4);
+            Down();
         }
         
         public virtual void executeCommand()
@@ -132,7 +145,6 @@ namespace Assets.Script
 
         public void useObjectOnScane()
         {
-            Debug.Log("Event useObjectOnScane");
             eventUseObject(this);
         }
 

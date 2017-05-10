@@ -8,14 +8,14 @@ namespace Assets.Script
 {
     public abstract class SceneObject : MonoBehaviour, IUseable
     {
-        public Rigidbody2D _rigibody;
-        public BoxCollider2D _collider { private set; get; }
+        private Rigidbody2D _rigibody;
+        private BoxCollider2D _collider { set; get; }
         private Transform _transform;
         private Animator _animator;
         private string _name;
         private bool active = false; // StateObjectManager instend of bool
 
-        public BoxCollider2D getCollider2D()
+        public virtual BoxCollider2D getCollider2D()
         {
             return _collider;
         }
@@ -30,7 +30,7 @@ namespace Assets.Script
 
         }
 
-        public virtual void use()
+        public virtual void use(Entity entity)
         {
             active = !active;
             //GetComponent<SpriteRenderer>().enabled = active;
@@ -40,10 +40,10 @@ namespace Assets.Script
         public virtual void init(string name, Animator anim, Transform transform, BoxCollider2D boxCollider2D, Rigidbody2D rigibody)
         {
             _name = name;
-            _rigibody = GetComponent<Rigidbody2D>();
-            _transform = GetComponent<Transform>();
-            _animator = GetComponent<Animator>();
-            _collider = GetComponent<BoxCollider2D>();
+            _rigibody = rigibody;
+            _transform = transform;
+            _animator = anim;
+            _collider = boxCollider2D;
         }
 
         public override string ToString()

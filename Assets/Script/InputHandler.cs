@@ -56,7 +56,6 @@ namespace Assets.Script
     {
         public void execute(CharacterController gameActor)
         {
-            Debug.Log("Use Item Command");
             gameActor.useObjectOnScane(); // Scene
         }
         public override string ToString()
@@ -85,7 +84,6 @@ namespace Assets.Script
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                Debug.Log("Use E");
                 return new UseItemCommand();
             }
             if (Input.GetButtonDown("Jump"))

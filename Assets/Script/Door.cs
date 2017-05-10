@@ -11,6 +11,11 @@ namespace Assets.Script
         private SpriteRenderer sprite;
         private BoxCollider2D _box;
 
+        public override BoxCollider2D getCollider2D()
+        {
+            return _box;
+        }
+
         public override void init(string name, Animator anim, Transform transform, BoxCollider2D boxCollider2D, Rigidbody2D rigibody)
         {
             _box = boxCollider2D;
@@ -28,12 +33,13 @@ namespace Assets.Script
             return "Door";
         }
 
-        public override void use() // use(Entity)
+        public override void use(Entity entity) // use(Entity)
         {
-            base.use();
+            base.use(entity);
             sprite.enabled = getStatus();
-            Debug.Log(getStatus());
+            //Debug.Log(getStatus());
             _box.isTrigger = getStatus();
         }
     }
 }
+

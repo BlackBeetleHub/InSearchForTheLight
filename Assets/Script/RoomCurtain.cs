@@ -21,6 +21,7 @@ namespace Assets.Script
             isOpen = false;
             _collider = GetComponent<BoxCollider2D>();
             doors = (ObjectManager.collisionDoor(_collider));
+            //Debug.Log("doors.Length: " + doors.Length);
             WallPict = GetComponent<SpriteRenderer>();
             WallPict.enabled = true;
             alpha = WallPict.color;
@@ -45,6 +46,7 @@ namespace Assets.Script
                 if (doors[i].getStatus())
                 {
                     isOpen = true;
+                    break;
                 }
             }
         }
