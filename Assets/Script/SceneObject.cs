@@ -9,13 +9,13 @@ namespace Assets.Script
     public abstract class SceneObject : MonoBehaviour, IUseable
     {
         private Rigidbody2D _rigibody;
-        private BoxCollider2D _collider { set; get; }
+        private Collider2D _collider { set; get; }
         private Transform _transform;
         private Animator _animator;
         private string _name;
         private bool active = false; // StateObjectManager instend of bool
 
-        public virtual BoxCollider2D getCollider2D()
+        public virtual Collider2D getCollider2D()
         {
             return _collider;
         }
@@ -51,6 +51,12 @@ namespace Assets.Script
             return "SceneObject";
         }
 
+        public static bool equels(Collider2D one, Collider2D two)
+        {
+            Vector3 pos1 = one.transform.position;
+            Vector3 pos2 = two.transform.position;
+            return pos1.x == pos2.x && pos1.y == pos2.y;
+        }
     }
 
    

@@ -32,7 +32,6 @@ namespace Assets.Script
         {
             // if (gameobject == Character)
             //state = true;
-            
         }
 
         public void OnTriggerExit(Collider other)
@@ -40,5 +39,9 @@ namespace Assets.Script
             // state = false; 
         }
 
+        public override string ToString()
+        {
+            return "TeleportDoor";
+        }
     }
 }

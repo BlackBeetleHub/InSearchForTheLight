@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using UnityEngine;
 
 namespace Assets.Script
@@ -42,17 +43,19 @@ namespace Assets.Script
         {
             List<SceneObject> doors = new List<SceneObject>();
             Collider2D[] collisionWithRoom = Physics2D.OverlapBoxAll(collider.transform.position, collider.bounds.size, 0);
-            Debug.Log(collisionWithRoom.Length);
+            //Debug.Log(collisionWithRoom.Length);
             foreach (var obj in _sceneObjects)
             {
                 if (obj.ToString() == "Door")
                 {
+
                     foreach (var col in collisionWithRoom)
                     {
-                        Debug.Log(col.IsTouching(obj.getCollider2D()));
-                        if (col.IsTouching(obj.getCollider2D()) == true)
+                        Debug.Log("ObjectManager");
+                        Debug.Log(obj.getCollider2D() == null);
+                        if (SceneObject.equels(col,obj.getCollider2D()))
                         {
-                            Debug.Log("find");
+                           // Debug.Log("find");
                             //col.Equals(obj.getCollider2D()
                             //Physics2D.IsTouching(col,obj.getCollider2D())
                             //  Debug.Log("Find");
@@ -76,6 +79,7 @@ namespace Assets.Script
 
         public void Start()
         {
+            Debug.Log("ObjectManager");
             init(FindObjectsOfType<Entity>(), FindObjectsOfType<SceneObject>());
         }
     }

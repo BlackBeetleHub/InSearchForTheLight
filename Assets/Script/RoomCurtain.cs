@@ -10,13 +10,14 @@ namespace Assets.Script
         private bool isInside;
         private bool isOpen;
         private SpriteRenderer WallPict;
-        private BoxCollider2D _collider;
+        private Collider2D _collider;
         private Color alpha;
         private SceneObject[] doors;
         // Use this for initialization
 
         public void Start()
         {
+            Debug.Log("RoomCurtain");
             isInside = false;
             isOpen = false;
             _collider = GetComponent<BoxCollider2D>();
